@@ -1,0 +1,23 @@
+<!-- Created by Jian Zhang @ Coding Dojo on 02/24/2017 -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Destination Details</title>
+    </head>
+    <body>
+        <a href='{%  url 'travel:home' %}'>Home</a> | <a href='{%  url 'travel:logout' %}'>Logout</a>
+        <br />
+        <h3>{{trip.destination}}</h3>
+        <p>Planned By: {{trip.user.name}}</p>
+        <p>Description: {{trip.plan}}</p>
+        <p>Travel Date From: {{trip.b_date}}</p>
+        <p>Planned By: {{trip.e_date}}</p>
+        <br />
+        <h3>Other users' joining the trip</h3>
+        {% for group in groups %}
+        <p>{{group.user.name}}</p>
+        {% endfor %}
+    </body>
+</html>

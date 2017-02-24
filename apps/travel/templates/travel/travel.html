@@ -1,0 +1,77 @@
+<!-- Created by Jian Zhang @ Coding Dojo on 02/24/2017 -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Travel Buddy Home</title>
+        <style>
+            .errors{
+                color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+            <a href='{%  url 'travel:logout' %}'>Logout</a>
+            <h2>Hello, {{request.session.name}}! Welcome to Travel Buddy!</h2>
+            <br />
+            <h3>Your Trip Schedules</h3>
+            <table>
+                <tr>
+                    <td>Destination</td>
+                    <td>Travel Start Date</td>
+                    <td>Travel End Date</td>
+                    <td>Plan</td>
+                </tr>
+                {% for trip in user_trips %}
+                <tr>
+                    <td><a href="{%url 'travel:destination' id=trip.id%}">{{trip.destination}}</a></td>
+                    <td>{{trip.b_date}}</td>
+                    <td>{{trip.e_date}}</td>
+                    <td>{{trip.plan}}</td>
+                </tr>
+                {% endfor %}
+                {% for group in user_added_trips %}
+                <tr>
+                    <td><a href="{%url 'travel:destination' id=group.trip.id%}">{{group.trip.destination}}</a></td>
+                    <td>{{group.trip.b_date}}</td>
+                    <td>{{group.trip.e_date}}</td>
+                    <td>{{group.trip.plan}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br />
+            <h3>Other User's Travel Plans</h3>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>Destination</td>
+                    <td>Travel Start Date</td>
+                    <td>Travel End Date</td>
+                    <td>Do You Want to Join?</td>
+                </tr>
+                {% for trip in other_trips %}
+                <tr>
+                    <td>{{trip.user.name}}</td>
+                    <td><a href="{%url 'travel:destination' id=trip.id%}">{{trip.destination}}</a></td>
+                    <td>{{trip.b_date}}</td>
+                    <td>{{trip.e_date}}</td>
+                    <td><a href="{%url 'travel:join' id=trip.id%}">Join</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br />
+            <a href='{%  url 'travel:goto' %}'>Add Travel Plan</a>
+        </div>
+        <div class="errors">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<!-- Created by Jian Zhang @ Coding Dojo on 02/24/2017 -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Travel Buddy Login Page</title>
+        <style>
+            .errors{
+                color:red;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome To The Travel Buddy</h1>
+        <hr />
+        <div id="reg">
+            <h2>Register</h2>
+            <form action='{% url 'travel:register' %}' method='post'>
+                {% csrf_token %}
+                <p>First Name: <input type='text' name='name' /></p>
+                <p>Username: <input type='text' name='username' /></p>
+                <p>Password: <input type='text' name='password' /></p>
+                <p>Password should be at least 8 characters</p>
+                <p>Confirm PW: <input type='text' name='confirm' /></p>
+                <p><input type='submit' value='Register' /></p>
+            </form>
+        </div>
+        <hr />
+        <div id="log">
+            <h2>Login</h2>
+            <form action='{% url 'travel:login' %}' method='post'></p>
+                {% csrf_token %}
+                <p>Username: <input type='text' name='username' /></p>
+                <p>Password: <input type='text' name='password' /></p>
+                <p><input type='submit' value='Login' /></p>
+            </form>
+            <br />
+            <div class="errors">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+
+    </body>
+</html>
